@@ -13,7 +13,7 @@ class RouteGenerator{
 
       case '/user':
       return 
-      _fadeRoute(UserScreen(),"/user");
+      _fadeRoute(UserScreen(id: 1,),"/user");
 
       default: 
        return _fadeRoute(HomeScreen(),"/home");

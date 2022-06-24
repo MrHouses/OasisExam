@@ -5,12 +5,15 @@ import 'package:oasisexam/ui/custom_app_menu.dart';
 
 
 class UserScreen extends StatefulWidget{
-  
-  const UserScreen({Key? key}) : super(key: key);
+  final int id;
+  const UserScreen({Key? key , @required required this.id}) : super(key: key);
   
   @override
   State<UserScreen> createState() => _UserScreenState();
+
 }
+
+
 
 class _UserScreenState extends State<UserScreen> {
   int contador = 0;
