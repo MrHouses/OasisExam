@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'dart:convert';
 import 'package:oasisexam/models/post.dart';
 import 'package:http/http.dart' as http;
@@ -47,8 +49,54 @@ class RemoteService{
 
   }
 
+  Future <List<post>?> getpostsuser(int id) async {
 
-  Future <List<user>?> getInfoUser(int id) async {
+     var client = http.Client();
+    var uri = Uri.parse("https://jsonplaceholder.typicode.com/posts");
+
+    final response = await http.get(uri);
+    List <post> posts = [];
+    if(response.statusCode == 200)
+    {
+
+   //print(response.body);
+    var uriusers = Uri.parse("https://jsonplaceholder.typicode.com/users");
+    final responseusers = await http.get(uriusers);
+
+    String bodyuser =responseusers.body;
+    final jsonuser = jsonDecode(bodyuser);
+      
+    String bodypost =response.body;
+    final jsonpost = jsonDecode(bodypost);
+
+      for (var Item in jsonpost) {
+        String username = id.toString();
+        for (var element in jsonuser) {
+          if(Item["userId"] == element["id"])
+          {
+            username = element["username"];
+          }
+        }
+
+        if(Item["userId"] == id)
+        {
+          post newpost = post(Item["userId"] ,username, Item["id"],Item["title"],Item["body"]);
+          posts.add(newpost);
+        }
+      }
+
+      
+       
+      return posts;
+    } else 
+    {
+      throw Exception("ErrorEnJson");
+    }
+
+  }
+
+
+  Future <List<user>> getInfoUser(int id) async {
 
     var client = http.Client();
     var uri = Uri.parse("https://jsonplaceholder.typicode.com/users/"+id.toString());

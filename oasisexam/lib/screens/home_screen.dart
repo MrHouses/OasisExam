@@ -36,57 +36,70 @@ List <post> ? posts;
   Widget build(BuildContext context) {
        
     int Usuario = 0;
+    final yourScrollController = ScrollController();
 
     return  Scaffold(
+      resizeToAvoidBottomInset: false,
+      
       body: 
-      Column(
-        children: [
-        const CustomAppMenu(),
-        Text("Publicaciones"),
-         posts == null || posts!.isEmpty
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : ListView.builder(
-              shrinkWrap: true,
-              itemCount: 6,
-              itemBuilder: (context, int index) {   
-                    return 
-                       Container(
-                                height: 120,
-                              child:
-                                  Card(
-                                          elevation: 3.0,
-                                          shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(5), 
-                                          side: BorderSide(
-                                          color: Colors.grey.withOpacity(0.2),
-                                          width: 1,
-                                        ),
-                                      ),
-                                      child: Column(
-                                        children:  <Widget> [
-
-                                           TextButton(
-                                                style: TextButton.styleFrom(
-                                                  padding: const EdgeInsets.all(16.0),
-                                                  primary: Colors.blue,
-                                                  textStyle: const TextStyle(fontSize: 20),
-                                                ),
-                                                onPressed: () {
-                                                    Usuario= posts![index].userId;
-                                                     Navigator.pushNamed(( context), '/user/'+Usuario.toString());
-                                                },
-                                                child: Text("Usuario : "+posts![index].userName),
+      SingleChildScrollView (
+        child: Column(
+          children: [
+          CustomAppMenu(),
+          Text("Publicaciones",textAlign: TextAlign.center,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 30),),
+           posts == null || posts!.isEmpty
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Scrollbar(
+              thickness: 10,
+              controller: yourScrollController,
+              child: ListView.builder(
+                  itemCount: 100,
+                  shrinkWrap: true,
+                  primary: false,
+                  itemBuilder: (context, int index) {   
+                        return 
+                           Container(
+                                    height: 144,
+                                  child:
+                                      Card(
+                                              elevation: 3.0,
+                                              color: Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(5), 
+                                              side: BorderSide(
+                                              color: Colors.grey.withOpacity(0.2),
+                                              width: 1,
+                                            ),
                                           ),
-                                           Text("Titulo : "+posts![index].title),
-                                           Text("Publicacion : "+posts![index].body),
-                                        ]),
-                                  )
-                        );
-                  }
+                                          child: Column(
+                                            children:  <Widget> [
+            
+                                               TextButton(
+                                                    style: TextButton.styleFrom(
+                                                      padding: const EdgeInsets.all(16.0),
+                                                      primary: Colors.blue,
+                                                      textStyle: const TextStyle(fontSize: 20),
+                                                    ),
+                                                    onPressed: () {
+                                                        Usuario= posts![index].userId;
+                                                         Navigator.pushNamed(( context), '/user/'+Usuario.toString());
+                                                    },
+                                                    child: Text("Usuario : "+posts![index].userName),
+                                              ),
+                                               Text("Titulo : "+posts![index].title),
+                                               Text("Publicacion : "+posts![index].body),
+                                            ]),
+                                      )
+                            );
+                      }
+                ),
             ),
-        ],
+          ],
+        ),
       ),
     );
 
