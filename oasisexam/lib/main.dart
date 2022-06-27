@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:oasisexam/router/route_generator.dart';
+import 'package:oasisexam/router/router.dart';
 
 void main() {
+  Flurorouter.configureRoutes();
   runApp(const MyApp());
 }
 
@@ -10,11 +11,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Oasis Social',
       initialRoute: '/home',
-      onGenerateRoute: RouteGenerator.generateRouter,
+      onGenerateRoute: Flurorouter.router.generator
     );
   }
 } 

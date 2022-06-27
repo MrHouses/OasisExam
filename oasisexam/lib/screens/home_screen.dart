@@ -1,8 +1,10 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:oasisexam/screens/user_screen.dart';
 import 'package:oasisexam/services/remote_service.dart';
 import 'package:oasisexam/ui/custom_app_menu.dart';
+
 
 import '../models/post.dart';
 
@@ -28,9 +30,13 @@ List <post> ? posts;
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
   }
 
+
+
   @override
   Widget build(BuildContext context) {
        
+    int Usuario = 0;
+
     return  Scaffold(
       body: 
       Column(
@@ -60,9 +66,21 @@ List <post> ? posts;
                                       ),
                                       child: Column(
                                         children:  <Widget> [
-                                           Text("Usuario : "+posts![index].userId),
+
+                                           TextButton(
+                                                style: TextButton.styleFrom(
+                                                  padding: const EdgeInsets.all(16.0),
+                                                  primary: Colors.blue,
+                                                  textStyle: const TextStyle(fontSize: 20),
+                                                ),
+                                                onPressed: () {
+                                                    Usuario= posts![index].userId;
+                                                     Navigator.pushNamed(( context), '/user/'+Usuario.toString());
+                                                },
+                                                child: Text("Usuario : "+posts![index].userName),
+                                          ),
                                            Text("Titulo : "+posts![index].title),
-                                            Text("Publicacion : "+posts![index].body),
+                                           Text("Publicacion : "+posts![index].body),
                                         ]),
                                   )
                         );
@@ -71,6 +89,9 @@ List <post> ? posts;
         ],
       ),
     );
+
+
+    
   }
   
   

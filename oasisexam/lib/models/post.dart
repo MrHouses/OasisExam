@@ -1,11 +1,12 @@
 import 'dart:convert';
 class post {
-     final String userId;
-    final int id;
-   final String title;
-   final String body;
+  final int userId;
+  final String userName;
+  final int id;
+  final String title;
+  final String body;
 
-    post(this.userId,this.id,this.title,this.body);
+    post(this.userId,this.userName,this.id,this.title,this.body);
     
 
 }

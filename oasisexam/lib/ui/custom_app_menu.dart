@@ -19,15 +19,6 @@ class CustomAppMenu extends StatelessWidget {
            child: Text("Home"),),
         ),
 
-          TextButton(
-
-                  onPressed: () { 
-                        Navigator.pushNamed(( context), '/user');
-           }, child: Padding(padding: const EdgeInsets.all(10.0),
-           child: Text("Home 2"),),
-        ),
-
-
       ]),
     );
   }
